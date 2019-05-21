@@ -26,7 +26,9 @@ fi
 #alias vv="du --max-depth=1 -k | sort -nr | cut -f2 | xargs -d '\n' du -sh"
 #alias gitlog="git log --graph --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(bold white). %an%C(reset)%C(bold yellow)%d%C(reset)' --abbrev-commit --date=relative"
 
-export PATH=$PATH:/var/hal_server/bin:/var/hp/internal/bin
+######ALPHA USE#######
+#export PATH=$PATH:/var/hal_server/bin:/var/hp/internal/bin
+######ALPHA USE#######
 export CVSEDITOR='vim'
 export EDITOR="vim"
 export VISUAL="vim"
