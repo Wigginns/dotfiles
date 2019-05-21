@@ -37,7 +37,7 @@ filetype plugin indent on
 set backspace=indent,eol,start
 set shiftround
 set nocompatible
-colorscheme lucid
+colorscheme codedark
 syntax on
 syntax enable
 set backspace=2
