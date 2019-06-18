@@ -4,7 +4,7 @@
 scriptencoding utf-8
 
 set background=dark
-hi clear
+"hi clear
 if exists("syntax_on")
     syntax reset
 endif
