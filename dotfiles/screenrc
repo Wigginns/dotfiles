@@ -19,6 +19,9 @@ bindkey "^[[27;6;9~" prev # Ctrl-Shift-Tab
 # don't display the copyright page
 startup_message off
 
+# turn off visual bell because the flashing is annoying
+vbell "off"
+
 # binds
 bind / eval "clear" "scrollback 0" "scrollback 30000"
 bind R eval "source $HOME/.screenrc" "echo '.screenrc reloaded!'"
