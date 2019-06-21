@@ -1,7 +1,7 @@
 #!/usr/bin/perl
 use strict;
 
-## Use this to push changes to dotfiles from zugzug home to various boxes that you may not have access to git on or 
+## Use this to push changes to dotfiles from zugzug home to various boxes that you may not have access to git on or
 ## that you don't want to have to manually retrieve the files and run the symlink.sh on
 ##
 ##
@@ -25,9 +25,10 @@ while (<DATA>) {
     print "$cmd\n";
     system($cmd);
 
-    $cmd = qq{ssh $from 'tar -C ~ -czf - .bash_extra' | ssh $_ 'tar -C ~ -xzf -'};
-    print "$cmd\n";
-    system($cmd);
+#    I dont think I have a use for this at this time...?
+#    $cmd = qq{ssh $from 'tar -C ~ -czf - .bash_extra' | ssh $_ 'tar -C ~ -xzf -'};
+#    print "$cmd\n";
+#    system($cmd);
 
     $cmd = qq{ssh $_ '~/dotfiles/symlink.sh'};
     print "$cmd\n";
