@@ -20,7 +20,8 @@ bindkey "^[[27;6;9~" prev # Ctrl-Shift-Tab
 startup_message off
 
 # turn off visual bell because the flashing is annoying
-vbell "off"
+vbell off
+bell_msg 'Bell in window %n^G'
 
 # binds
 bind / eval "clear" "scrollback 0" "scrollback 30000"
