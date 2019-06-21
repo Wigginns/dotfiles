@@ -94,7 +94,7 @@ spacer="${orange}>"
 host=$(hostname)
 if [[ $host =~ beta|smoker ]]; then
     bg="${yellowbg}"
-elif [[ $host =~ pro-bcowley-m ]]; then
+elif [[ $host =~ pro-bcowley-m|pro-bcowley-w ]]; then
     bg="${white}"
 elif [[ $host =~ alpha|dev ]]; then
     bg="${green}"
@@ -104,7 +104,7 @@ elif [[ $host =~ zugzug ]]; then
     bg="${bluebg}"
 elif [[ $host =~ 0.bluehost ]]; then
     bg="${orangebg}"
-elif [[ $host =~ fastdomain.com|unifiedlayer.com|bluehost.com|gnhill.net|box984|jarth.org ]]; then
+elif [[ $host =~ fastdomain.com|unifiedlayer.com|bluehost.com|box444 ]]; then
     bg="${redbg}"
 else
     bg="${redbg}UNKNOWN!!!";
