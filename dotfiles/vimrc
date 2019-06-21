@@ -20,6 +20,8 @@ autocmd FileType perl set makeprg=perl\ -wc\ %\ $*
 autocmd FileType perl set errorformat=%f:%l:%m
 autocmd FileType perl set autowrite
 filetype on
+let perl_extended_vars = 1
+let perl_include_pod = 1
 au BufNewFile,BufRead *.tt set filetype=html
 vmap <tab> >gv
 vmap <s-tab> <gv
@@ -27,54 +29,70 @@ nmap <tab> I<tab><esc>
 nmap <silent> <BS> :nohlsearch<CR>
 nmap <s-tab> ^i<bs><esc>
 set number
+
+" tabs sapces indents
 set shiftwidth=4
 set expandtab
-set showmatch
 set softtabstop=4
 set autoindent
 set smartindent
-filetype plugin indent on
-set backspace=indent,eol,start
 set shiftround
+filetype plugin indent on
+set smarttab
+set tabstop=4
+
+" Vi compatibility
 set nocompatible
+
+" Show matching bracket
+set showmatch
+
+" Syntax and colors
 colorscheme codedark
 syntax on
 syntax enable
+
+" Backspacing options, both lines are the same.
+set backspace=indent,eol,start
 set backspace=2
+
+" Search Options
 set ignorecase
 set incsearch
 set hlsearch
 set nowrapscan
+set smartcase
+
 set history=500
 set showbreak=\ \ \ \ \ \ \ \\
-set smartcase
-set smarttab
-set tabstop=4
 set whichwrap=b,s,h,l,<,>,[,]
 set hidden
 set viminfo='5,"100
 set path=/var/www/lib,/var/www/tt
 inoremap # X<C-H>#
-let perl_extended_vars = 1
-let perl_include_pod = 1
+
+" Pasting toggle
 nnoremap <c-P> :set invpaste paste?<CR>
 set pastetoggle=<c-P>
+
+" No word wrapping
 set tw=0
+
+" Completion options: remove i
 set complete-=i
 
+" display tabs and trailing spaces
+set list
+set listchars=tab:»\ ,trail:•,nbsp:•
+
+" tab options
+set showtabline=2
 hi TabLine     guifg=#333 guibg=#222 gui=none ctermfg=254 ctermbg=238 cterm=none
 hi TabLineSel  guifg=#666 guibg=#222 gui=bold ctermfg=231 ctermbg=235 cterm=bold
 hi TabLineFill guifg=#999 guibg=#222 gui=none ctermfg=254 ctermbg=238 cterm=none
 
 " taglist
-nnoremap <silent> <F5> :TlistToggle<CR>
-
-" Remove detault mappings
-let VCSCommandDisableMappings=1
-
-nmap ,ca :VCSAnn<CR>
-
-" Show 30 last lines from log related to the current file
+nnoremap <silent> <F5> :TlistToggle<CR> " Remove detault mappings let VCSCommandDisableMappings=1 nmap ,ca :VCSAnn<CR> " Show 30 last lines from log related to the current file
 nmap ,cl :VCSLog<CR>
 
 " Show diffs with version in the CVS
@@ -98,3 +116,50 @@ map  ,ws :%s/\s\+$//e
 map <space> <s-v>
 map <c-space> ?
 autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
+
+"
+" STATUS LINE STUFF
+"
+
+function! GitBranch()
+  return system("git rev-parse --abbrev-ref HEAD 2>/dev/null | tr -d '\n'")
+endfunction
+
+function! StatuslineGit()
+  let l:branchname = GitBranch()
+  return strlen(l:branchname) > 0?'  '.l:branchname.' ':''
+endfunction
+
+set laststatus=2
+set statusline=
+set statusline+=%#PmenuSel#
+set statusline+=%{StatuslineGit()}
+set statusline+=%#LineNr#
+set statusline+=\ %f
+set statusline+=%m\
+set statusline+=%=
+set statusline+=%#CursorColumn#
+set statusline+=\ %y
+set statusline+=\ %{&fileencoding?&fileencoding:&encoding}
+set statusline+=\[%{&fileformat}\]
+set statusline+=\ %p%%
+set statusline+=\ %l:%c
+set statusline+=\
+
+set statusline+=%{StatuslineTrailingSpaceWarning()}
+
+"recalculate the trailing whitespace warning when idle, and after saving
+autocmd cursorhold,bufwritepost * unlet! b:statusline_trailing_space_warning
+
+"return '[\s]' if trailing white space is detected
+"return '' otherwise
+function! StatuslineTrailingSpaceWarning()
+    if !exists("b:statusline_trailing_space_warning")
+        if search('\s\+$', 'nw') != 0
+            let b:statusline_trailing_space_warning = '[\s]'
+        else
+            let b:statusline_trailing_space_warning = ''
+        endif
+    endif
+    return b:statusline_trailing_space_warning
+endfunction
