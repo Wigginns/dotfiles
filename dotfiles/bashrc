@@ -16,7 +16,7 @@ fi
 # User specific aliases and functions
 #alias ll='ls -lh'
 #alias elog='sudo tail -f /etc/httpd/logs/error_log'
-#alias sr='screen -d -R'
+alias sr='screen -d -R'
 #alias mc='sudo /etc/init.d/memcached restart'
 #alias mv='mv -i'
 #alias rm='rm -i'
@@ -27,12 +27,19 @@ fi
 #alias gitlog="git log --graph --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(bold white). %an%C(reset)%C(bold yellow)%d%C(reset)' --abbrev-commit --date=relative"
 
 ######ALPHA USE#######
-#export PATH=$PATH:/var/hal_server/bin:/var/hp/internal/bin
-######ALPHA USE#######
+export PATH=$PATH:/var/hal_server/bin:/var/hp/dev/bin:/var/hp/internal/bin:/var/hp/my/bin:/admin/$USER/bin; export PERL5LIB=$PERL5LIB:/var/hp/common/lib:/var/core_lib/lib:/var/gap/lib:/var/hal_server/lib:/var/gap/lib:/admin/$USER/perl5/lib/perl5; export PROV=bh;
+#####ALPHA USE#######
+
 export CVSEDITOR='vim'
 export EDITOR="vim"
 export VISUAL="vim"
 alias vi='vim'
+alias grep='grep --color'
+alias grepex='grep --exclude=\*.{css,txt,js,log,error_log,bak,sql,php,tmp,map,svg}'
+
+export HISTSIZE=10000       #store more history
+export HISTCONTROL=ignorespace:ignoresups #dont save lines starting with a space, dont save lines that match the previous command
+PROMPT_COMMAND='history -a' #store history immediately after running a command.
 
 
 function hr {
